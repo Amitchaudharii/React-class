@@ -52,11 +52,26 @@ function App({ name, location, coOrdinates: {latitude, longitude}, age, primes }
 
   const [selectedproduct, setSelectedProduct] = useState(null);
 
-  const handleAddproduct = (e) => 
+  const handleAddUpdateproduct = (e) => 
   {
+   if(!editState){ //editState ==false means button should add
     setProducts([
-      ...products, {id: Date(), name: productName, price: productPrice}
+      ...products, {id: Date(), name: productName, price: productPrice},
     ]);
+   }
+   else{ //editstate == true means button should update/save
+     setProducts(products.map(p => {
+       if (p.id === selectedproduct.id){
+        return{
+          ...p,
+          name: productName,
+          price: productPrice,
+        }
+       }
+       return p
+     }))
+     setEditState(false);
+   }
     setProductName('');
     setProductPrice(0);
   }  
@@ -66,6 +81,7 @@ function App({ name, location, coOrdinates: {latitude, longitude}, age, primes }
 
   const handleEditproduct = (products) => {
     setEditState(true);
+    setSelectedProduct(products);
     setProductName(products.name);
     setProductPrice(products.price);
   }
@@ -109,7 +125,7 @@ function App({ name, location, coOrdinates: {latitude, longitude}, age, primes }
        {/* <button onClick={handleAddproduct} >
         add
        </button> */}
-       <button onClick={handleAddproduct} >{editState ? "update":"add"}</button>
+       <button onClick={handleAddUpdateproduct} >{editState ? "update":"add"}</button>
 
     </div>
   );

@@ -1,0 +1,16 @@
+.counter-container {
+    display: flex;
+    height: 40px;
+    width: 200px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    height: 35px;
+    width: 35px;
+}
+
+button span {
+    font-size: 28px;
+}

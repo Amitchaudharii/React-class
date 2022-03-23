@@ -42,11 +42,15 @@ function App({ name, location, coOrdinates: {latitude, longitude}, age, primes }
   
   console.log(name, location, 'ccheck props');
 
-  const [productName, setProductName] = useState('Tesla');
+  const [productName, setProductName] = useState('');
 
-  const [productPrice, setProductPrice] = useState('200');
+  const [productPrice, setProductPrice] = useState(0);
 
   const [products, setProducts] = useState([]);
+
+  const [editState, setEditState] = useState(false);
+
+  const [selectedproduct, setSelectedProduct] = useState(null);
 
   const handleAddproduct = (e) => 
   {
@@ -60,11 +64,11 @@ function App({ name, location, coOrdinates: {latitude, longitude}, age, primes }
   const handleRemoveproduct = (id) => 
     setProducts(products.filter(p => p.id !== id));
 
-  // const handleEditproduct = (id) => {
-  //   setProducts(products.filter(p => p.id !== id));
-  //   setProducts(products.find(p => p.id === id));
-  //   console.log('selectedItem');
-  // }
+  const handleEditproduct = (products) => {
+    setEditState(true);
+    setProductName(products.name);
+    setProductPrice(products.price);
+  }
     
 
 
@@ -84,7 +88,7 @@ function App({ name, location, coOrdinates: {latitude, longitude}, age, primes }
         <li key={car.id}>
           <span>{car.name}</span>
           <span>{car.price}</span>
-          <button>
+          <button onClick={e => handleEditproduct(car)}>
             edit
           </button>
           <button onClick={e => handleRemoveproduct(car.id)}>
@@ -102,9 +106,10 @@ function App({ name, location, coOrdinates: {latitude, longitude}, age, primes }
         value={productPrice}
         onChange={e => setProductPrice(e.target.value)}
        />
-       <button onClick={handleAddproduct} >
+       {/* <button onClick={handleAddproduct} >
         add
-       </button>
+       </button> */}
+       <button onClick={handleAddproduct} >{editState ? "update":"add"}</button>
 
     </div>
   );

@@ -8,6 +8,10 @@
     padding: 130px 0;
 }
 
+li span {
+    margin: 5px 10px;
+}
+
 .App-logo {
     height: 40vmin;
     pointer-events: none;

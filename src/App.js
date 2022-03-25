@@ -1,48 +1,54 @@
-import React, {useState, useRef, useEfect} from "react"
-import logo from './logo.svg';
-import './App.css';
-import Counter from './Counter';
+import logo from "./logo.svg";
+import "./App.css";
+import Counter from "./Counter";
+import ExpensesTracker from "./ExpensesTracker";
+import { useEffect, useState } from "react";
+import moment from "moment";
 
 const cars = [
   {
-    name: 'BMW',
+    name: "BMW",
     price: 400,
   },
   {
-    name: 'Bentley',
+    name: "Bentley",
     price: 300,
   },
   {
-    name: 'Tesla',
+    name: "Tesla",
     price: 300,
   },
   {
-    name: 'Lamborghini',
+    name: "Lamborghini",
     price: 300,
   },
   {
-    name: 'Mercedez',
+    name: "Mercedez",
     price: 300,
   },
   {
-    name: 'Porsche',
+    name: "Porsche",
     price: 300,
   },
   {
-    name: 'Buggatti',
+    name: "Buggatti",
     price: 300,
   },
   {
-    name: 'Ferrari',
+    name: "Ferrari",
     price: 300,
   },
 ];
 
-function App({ name, location, coOrdinates: {latitude, longitude}, age, primes }) {
-  
-  console.log(name, location, 'ccheck props');
-
-  const [productName, setProductName] = useState('');
+function App({
+  name,
+  location,
+  coOrdinates: { latitude, longitude },
+  age,
+  primes,
+}) {
+  // console.log(name, location, "ccheck props");
+  const [productName, setProductName] = useState("");
 
   const [productPrice, setProductPrice] = useState(0);
 
@@ -50,45 +56,52 @@ function App({ name, location, coOrdinates: {latitude, longitude}, age, primes }
 
   const [editState, setEditState] = useState(false);
 
-  const [selectedproduct, setSelectedProduct] = useState(null);
+  const  [selectedProduct, setSelectedProduct] = useState(null);
+  const [total, setDate] = useState(0);
 
-  const handleAddUpdateproduct = (e) => 
-  {
-   if(!editState){ //editState ==false means button should add
-    setProducts([
-      ...products, {id: Date(), name: productName, price: productPrice},
-    ]);
-   }
-   else{ //editstate == true means button should update/save
-     setProducts(products.map(p => {
-       if (p.id === selectedproduct.id){
-        return{
-          ...p,
-          name: productName,
-          price: productPrice,
-        }
-       }
-       return p
-     }))
-     setEditState(false);
-   }
+  useEffect(() => {
+    console.log('changed!!!')
+    if(!editState) {
+      setProductName('');
+      setProductPrice(0);
+    }
+  },[editState]);
+
+  const handleAddUpdateProduct = (e) =>
+    {
+      if(!editState) { // editState == false means button should add
+        setProducts([
+          ...products,
+          { id: Date(), name: productName, price: productPrice },
+        ]);
+      }
+      else { // editState == true means button should update/save
+        setProducts(products.map(p => {
+            if(p.id === selectedProduct.id) {
+              return {
+                ...p,
+                name: productName,
+                price: productPrice,
+              }
+            }
+            return p
+        }))
+        setEditState(false);
+      }
     setProductName('');
     setProductPrice(0);
-  }  
+  };
 
-  const handleRemoveproduct = (id) => 
-    setProducts(products.filter(p => p.id !== id));
+  const handleRemoveProduct = (id) =>
+    setProducts(products.filter((p) => p.id !== id));
 
-  const handleEditproduct = (products) => {
+  const handleEditProduct = (product) => {
     setEditState(true);
-    setSelectedProduct(products);
-    setProductName(products.name);
-    setProductPrice(products.price);
-  }
-    
+    setSelectedProduct(product);
+    setProductName(product.name);
+    setProductPrice(product.price);
+  };
 
-
-  // const { name, location, coOrdinates: {latitude, longitude}, age, primes } = props;
   return (
     <div className="App">
       <h1>{name}</h1>
@@ -96,37 +109,40 @@ function App({ name, location, coOrdinates: {latitude, longitude}, age, primes }
       <h1>{latitude}' North</h1>
       <h1>{longitude}'East</h1>
       <h1>{age} years</h1>
-      <h2>Primes: {primes}  {primes.length} primes</h2>
+      <h2>
+        Primes: {primes} {primes.length} primes
+      </h2>
       <Counter />
       <h1>Cars</h1>
       <ul>
-      {products.map(car => (
-        <li key={car.id}>
-          <span>{car.name}</span>
-          <span>{car.price}</span>
-          <button onClick={e => handleEditproduct(car)}>
-            edit
-          </button>
-          <button onClick={e => handleRemoveproduct(car.id)}>
-            x
-          </button>
-        </li>
-      ))}
+        {products.map((car) => (
+          <li key={car.id}>
+            <span>{moment(car.date).format("")}</span>
+            <span>{car.name}</span>
+            <span>{car.price}</span>
+            <button onClick={(e) => handleEditProduct(car)}>Edit</button>
+            <button onClick={(e) => handleRemoveProduct(car.id)}>X</button>
+          </li>
+        ))}
+        <div>
+          <span>Total</span>
+          <span>{products.reduce((a,v)=> a+v.price,0)}</span>
+        </div>
       </ul>
-      <input 
-        value={productName}
-       onChange={e => setProductName(e.target.value)}
-       />
+      <ul>
+        <input type="date" />
+      </ul>
       <input
-        type="number"
+        value={productName}
+        onChange={(e) => setProductName(e.target.value)}
+      />
+      <input
+        type={"number"}
         value={productPrice}
-        onChange={e => setProductPrice(e.target.value)}
-       />
-       {/* <button onClick={handleAddproduct} >
-        add
-       </button> */}
-       <button onClick={handleAddUpdateproduct} >{editState ? "update":"add"}</button>
-
+        onChange={(e) => setProductPrice(e.target.value)}
+      />
+      <button onClick={handleAddUpdateProduct}>{editState ? "Update":"Add"}</button>
+      {editState ? <button onClick={e => setEditState(false)}>Cancel</button>:null}
     </div>
   );
 }

@@ -70,6 +70,13 @@ function App({
         ...products,
         { id: Date(), name: productName, price: pricep },
       ]);
+      localStorage.setItem(
+        "products",
+        JSON.stringify([
+          ...products,
+          { id: Date(), name: productName, price: pricep },
+        ])
+      );
     } else {
       setproducts(
         products.map((p) => {
@@ -83,13 +90,33 @@ function App({
           return p;
         })
       );
+      localStorage.setItem(
+        "products",
+        JSON.stringify(
+          products.map((p) => {
+            if (p.id === selectedProduct.id) {
+              return {
+                ...p,
+                name: productName,
+                price: pricep,
+              };
+            }
+            return p;
+          })
+        )
+      );
       setEditState(false);
     }
     setProductName("");
     productp(0);
   };
-  const handelRemoveProduct = (id) =>
+  const handelRemoveProduct = (id) => {
     setproducts(products.filter((p) => p.id !== id));
+    localStorage.setItem(
+      "products",
+      JSON.stringify(products.filter((p) => p.id))
+    );
+  };
 
   const handelLetEditProduct = (product) => {
     setEditState(true);

@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import ExpensesItem from "./ExpensesItem";
 
-
-
 function ExpensesTracker() {
   // console.log(name, location, "ccheck props");
   const [productName, setProductName] = useState("");
@@ -99,13 +97,12 @@ function ExpensesTracker() {
         value={productPrice}
         onChange={(e) => setProductPrice(e.target.value)}
       />
-      <ul>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
-      </ul>
+
+      <input
+        type="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+      />
 
       <button onClick={handleAddUpdateProduct}>
         {editState ? "Update" : "Add"}

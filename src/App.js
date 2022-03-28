@@ -1,10 +1,8 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Counter from "./Counter";
-import React, { useState } from "react";
-import { useEffect } from "react";
-// import ExpensesItem from "./ExpensesItem";
-// import ExpensesTracker from "./ExpensesTracker";
+import React, { useState, useEffect, useRef } from "react";
+import ExpensesItem from "./ExpensesItem";
 
 const cars = [
   {
@@ -14,8 +12,7 @@ const cars = [
   {
     name: "Bentley",
     price: 300,
-
- },
+  },
   {
     name: "Tesla",
     price: 300,
@@ -54,42 +51,44 @@ function App({
   const [productName, setProductName] = useState("");
   const [pricep, productp] = useState(0);
   const [products, setproducts] = useState([]);
-  const [editState,setEditState] = useState(false);
-  const [selectedProduct,setSelectProduct]=useState(null);
+  const [editState, setEditState] = useState(false);
+  const [selectedProduct, setSelectProduct] = useState(null);
+  const nameInputRef = useRef(null);
+  const priceInputRef = useRef(null);
 
   useEffect(() => {
-    console.log('changed!!!')
-    if(!editState) {
-      setProductName('');
+    console.log("changed!!!");
+    if (!editState) {
+      setProductName("");
       productp(0);
     }
-  },[editState]);
+  }, [editState]);
 
   const handleAddUpdateProduct = (e) => {
-    if(!editState){
-    setproducts([
-      ...products,
-      { id: Date(), name: productName, price: pricep },
-    ]);
-  }
-  else{
-    setproducts(products.map(p =>{
-      if(p.id===selectedProduct.id){
-        return{
-          ...p,
-          name : productName,
-          price : pricep,
-
-        }
-      }
-      return p;
-    }))
-    setEditState(false);
-  }
+    if (!editState) {
+      setproducts([
+        ...products,
+        { id: Date(), name: productName, price: pricep },
+      ]);
+    } else {
+      setproducts(
+        products.map((p) => {
+          if (p.id === selectedProduct.id) {
+            return {
+              ...p,
+              name: productName,
+              price: pricep,
+            };
+          }
+          return p;
+        })
+      );
+      setEditState(false);
+    }
     setProductName("");
     productp(0);
   };
-  const handelRemoveProduct = (id)=>
+  const handelRemoveProduct = (id) =>
     setproducts(products.filter((p) => p.id !== id));
 
   const handelLetEditProduct = (product) => {
@@ -98,6 +97,20 @@ function App({
     setProductName(product.name);
     productp(product.price);
   };
+
+  const handlePressAtNameInput = (e) => {
+    if (e.code === "Enter") {
+      priceInputRef?.current.focus();
+    }
+  };
+
+  const handlePressAtPriceInput = (e) => {
+    if (e.code === "Enter") {
+      handleAddUpdateProduct();
+      nameInputRef?.current.focus();
+    }
+  };
+
   return (
     <div className="App">
       <h1>{name}</h1>
@@ -122,18 +135,26 @@ function App({
         ))}
       </ol>
       <div className="input">
-      <input
-        value={productName}
-        onChange={(e) => setProductName(e.target.value)}
-      />
-      <input
-        type="number"
-        value={pricep}
-        onChange={(f) => productp(f.target.value)}
-      />
+        <input
+          value={productName}
+          onChange={(e) => setProductName(e.target.value)}
+          ref={nameInputRef}
+          onKeyPress={handlePressAtNameInput}
+        />
+        <input
+          type="number"
+          value={pricep}
+          onChange={(f) => productp(f.target.value)}
+          ref={priceInputRef}
+          onKeyPress={handlePressAtPriceInput}
+        />
       </div>
-      <button onClick={handleAddUpdateProduct}>{editState?"update":"add"}</button>
-     {editState? <button onClick={e => setEditState(false)}>cancel</button>:null}
+      <button onClick={handleAddUpdateProduct}>
+        {editState ? "update" : "add"}
+      </button>
+      {editState ? (
+        <button onClick={(e) => setEditState(false)}>cancel</button>
+      ) : null}
     </div>
   );
 }

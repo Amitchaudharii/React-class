@@ -3,6 +3,7 @@ import "./App.css";
 import Counter from "./Counter";
 import React, { useState, useEffect, useRef } from "react";
 import ExpensesItem from "./ExpensesItem";
+import ExpensesTracker from "./ExpensesTracker";
 
 const cars = [
   {
@@ -156,7 +157,7 @@ function App({
         Primes: {primes} {primes.length} primes
       </h2>
       <Counter />
-      {/* <ExpensesItem/> */}
+      <ExpensesTracker/>
       <h1>Cars</h1>
       <ol>
         {products.map((car) => (

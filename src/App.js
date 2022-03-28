@@ -1,9 +1,10 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Counter from "./Counter";
-import ExpensesTracker from "./ExpensesTracker";
-import { useEffect, useState } from "react";
-import moment from "moment";
+import React, { useState } from "react";
+import { useEffect } from "react";
+// import ExpensesItem from "./ExpensesItem";
+// import ExpensesTracker from "./ExpensesTracker";
 
 const cars = [
   {
@@ -13,7 +14,8 @@ const cars = [
   {
     name: "Bentley",
     price: 300,
-  },
+
+ },
   {
     name: "Tesla",
     price: 300,
@@ -48,60 +50,54 @@ function App({
   primes,
 }) {
   // console.log(name, location, "ccheck props");
+  // const { name, location, coOrdinates: {latitude, longitude}, age, primes } = props;
   const [productName, setProductName] = useState("");
-
-  const [productPrice, setProductPrice] = useState(0);
-
-  const [products, setProducts] = useState([]);
-
-  const [editState, setEditState] = useState(false);
-
-  const  [selectedProduct, setSelectedProduct] = useState(null);
-  const [total, setDate] = useState(0);
+  const [pricep, productp] = useState(0);
+  const [products, setproducts] = useState([]);
+  const [editState,setEditState] = useState(false);
+  const [selectedProduct,setSelectProduct]=useState(null);
 
   useEffect(() => {
     console.log('changed!!!')
     if(!editState) {
       setProductName('');
-      setProductPrice(0);
+      productp(0);
     }
   },[editState]);
 
-  const handleAddUpdateProduct = (e) =>
-    {
-      if(!editState) { // editState == false means button should add
-        setProducts([
-          ...products,
-          { id: Date(), name: productName, price: productPrice },
-        ]);
+  const handleAddUpdateProduct = (e) => {
+    if(!editState){
+    setproducts([
+      ...products,
+      { id: Date(), name: productName, price: pricep },
+    ]);
+  }
+  else{
+    setproducts(products.map(p =>{
+      if(p.id===selectedProduct.id){
+        return{
+          ...p,
+          name : productName,
+          price : pricep,
+
+        }
       }
-      else { // editState == true means button should update/save
-        setProducts(products.map(p => {
-            if(p.id === selectedProduct.id) {
-              return {
-                ...p,
-                name: productName,
-                price: productPrice,
-              }
-            }
-            return p
-        }))
-        setEditState(false);
-      }
-    setProductName('');
-    setProductPrice(0);
+      return p;
+    }))
+    setEditState(false);
+  }
+    setProductName("");
+    productp(0);
   };
+  const handelRemoveProduct = (id)=>
+    setproducts(products.filter((p) => p.id !== id));
 
-  const handleRemoveProduct = (id) =>
-    setProducts(products.filter((p) => p.id !== id));
-
-  const handleEditProduct = (product) => {
+  const handelLetEditProduct = (product) => {
     setEditState(true);
-    setSelectedProduct(product);
+    setSelectProduct(product);
     setProductName(product.name);
-    setProductPrice(product.price);
+    productp(product.price);
   };
-
   return (
     <div className="App">
       <h1>{name}</h1>
@@ -113,38 +109,32 @@ function App({
         Primes: {primes} {primes.length} primes
       </h2>
       <Counter />
+      {/* <ExpensesItem/> */}
       <h1>Cars</h1>
-      <ul>
+      <ol>
         {products.map((car) => (
           <li key={car.id}>
-            <span>{moment(car.date).format("")}</span>
             <span>{car.name}</span>
             <span>{car.price}</span>
-            <button onClick={(e) => handleEditProduct(car)}>Edit</button>
-            <button onClick={(e) => handleRemoveProduct(car.id)}>X</button>
+            <button onClick={(f) => handelLetEditProduct(car)}>Edit</button>
+            <button onClick={(e) => handelRemoveProduct(car.id)}>X</button>
           </li>
         ))}
-        <div>
-          <span>Total</span>
-          <span>{products.reduce((a,v)=> a+v.price,0)}</span>
-        </div>
-      </ul>
-      <ul>
-        <input type="date" />
-      </ul>
+      </ol>
+      <div className="input">
       <input
         value={productName}
         onChange={(e) => setProductName(e.target.value)}
       />
       <input
-        type={"number"}
-        value={productPrice}
-        onChange={(e) => setProductPrice(e.target.value)}
+        type="number"
+        value={pricep}
+        onChange={(f) => productp(f.target.value)}
       />
-      <button onClick={handleAddUpdateProduct}>{editState ? "Update":"Add"}</button>
-      {editState ? <button onClick={e => setEditState(false)}>Cancel</button>:null}
+      </div>
+      <button onClick={handleAddUpdateProduct}>{editState?"update":"add"}</button>
+     {editState? <button onClick={e => setEditState(false)}>cancel</button>:null}
     </div>
   );
 }
-
 export default App;

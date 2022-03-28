@@ -138,6 +138,13 @@ function App({
     }
   };
 
+  useEffect(() => {
+    const a = localStorage.getItem("products");
+    if(a){
+      setproducts(JSON.parse(a));
+    }
+  },[])
+
   return (
     <div className="App">
       <h1>{name}</h1>

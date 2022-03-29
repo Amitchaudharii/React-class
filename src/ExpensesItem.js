@@ -7,11 +7,12 @@ const ExpensesItem = ({ expense, onEdit, onRemove }) => {
       <span>{moment(expense.date).format("MMMM DD, YYYY")}</span>
       <span>{expense.name}</span>
       <span>{expense.price}</span>
-      <button id="edit" onClick={onEdit}>
-        {""}
+      <button onClick={onEdit}>
         Edit
       </button>
-      <button onClick={onRemove}>X</button>
+      <button onClick={onRemove}>
+        X
+      </button>
     </li>
   );
 };

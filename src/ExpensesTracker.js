@@ -1,9 +1,6 @@
-import logo from "./logo.svg";
 import "./App.css";
-import Counter from "./Counter";
 import "./Counter.css";
 import { useEffect, useState } from "react";
-import moment from "moment";
 import ExpensesItem from "./ExpensesItem";
 
 function ExpensesTracker() {

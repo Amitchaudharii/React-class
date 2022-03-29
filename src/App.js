@@ -2,7 +2,6 @@ import logo from "./logo.svg";
 import "./App.css";
 import Counter from "./Counter";
 import React, { useState, useEffect, useRef } from "react";
-import ExpensesItem from "./ExpensesItem";
 import ExpensesTracker from "./ExpensesTracker";
 
 const cars = [
@@ -124,6 +123,7 @@ function App({
     setSelectProduct(product);
     setProductName(product.name);
     productp(product.price);
+    nameInputRef?.current.focus();
   };
 
   const handlePressAtNameInput = (e) => {
@@ -141,10 +141,10 @@ function App({
 
   useEffect(() => {
     const a = localStorage.getItem("products");
-    if(a){
+    if (a) {
       setproducts(JSON.parse(a));
     }
-  },[])
+  }, []);
 
   return (
     <div className="App">
@@ -157,7 +157,7 @@ function App({
         Primes: {primes} {primes.length} primes
       </h2>
       <Counter />
-      <ExpensesTracker/>
+      <ExpensesTracker />
       <h1>Cars</h1>
       <ol>
         {products.map((car) => (

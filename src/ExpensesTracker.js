@@ -16,7 +16,7 @@ function ExpensesTracker() {
   const [editState, setEditState] = useState(false);
 
   const [selectedProduct, setSelectedProduct] = useState(null);
-  // const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     console.log("changed!!!");
@@ -75,7 +75,7 @@ function ExpensesTracker() {
               handleEditProduct(car);
             }}
             onRemove={(e) => {
-              handleRemoveProduct(car);
+              handleRemoveProduct(car.id);
             }}
           />
         ))}

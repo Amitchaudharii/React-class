@@ -1,10 +1,9 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Counter from "./Counter";
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import ExpensesTracker from "./ExpensesTracker";
 import CarList from "./CarList";
-import { RiDeleteBin2Fill } from "react-icons/ri";
 
 function App({
   name,

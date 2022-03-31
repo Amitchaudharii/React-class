@@ -1,43 +1,45 @@
 import React, { useState, useEffect, useRef } from "react";
+import "./CarList.css";
 import { RiDeleteBin2Fill } from "react-icons/ri";
+import { FiEdit } from "react-icons/fi";
 
 const cars = [
-    {
-      name: "BMW",
-      price: 400,
-    },
-    {
-      name: "Bentley",
-      price: 300,
-    },
-    {
-      name: "Tesla",
-      price: 300,
-    },
-    {
-      name: "Lamborghini",
-      price: 300,
-    },
-    {
-      name: "Mercedez",
-      price: 300,
-    },
-    {
-      name: "Porsche",
-      price: 300,
-    },
-    {
-      name: "Buggatti",
-      price: 300,
-    },
-    {
-      name: "Ferrari",
-      price: 300,
-    },
-  ];
-  
-function CarList(){
-    // console.log(name, location, "ccheck props");
+  {
+    name: "BMW",
+    price: 400,
+  },
+  {
+    name: "Bentley",
+    price: 300,
+  },
+  {
+    name: "Tesla",
+    price: 300,
+  },
+  {
+    name: "Lamborghini",
+    price: 300,
+  },
+  {
+    name: "Mercedez",
+    price: 300,
+  },
+  {
+    name: "Porsche",
+    price: 300,
+  },
+  {
+    name: "Buggatti",
+    price: 300,
+  },
+  {
+    name: "Ferrari",
+    price: 300,
+  },
+];
+
+function CarList() {
+  // console.log(name, location, "ccheck props");
   // const { name, location, coOrdinates: {latitude, longitude}, age, primes } = props;
   const [productName, setProductName] = useState("");
   const [pricep, productp] = useState(0);
@@ -138,43 +140,69 @@ function CarList(){
   }, []);
 
   return (
-    <div className="App">
+    <div className="main-container">
       <h1>Cars</h1>
-      <div className="expense-container">
+      <div className="form">
+        <div className="input">
+          <input
+            placeholder="Name"
+            value={productName}
+            onChange={(e) => setProductName(e.target.value)}
+            ref={nameInputRef}
+            onKeyPress={handlePressAtNameInput}
+          />
+          <input
+            placeholder="Price"
+            type="number"
+            value={pricep}
+            onChange={(f) => productp(f.target.value)}
+            ref={priceInputRef}
+            onKeyPress={handlePressAtPriceInput}
+          />
+        </div>
+        <div className="add-btn">
+          <button className="add-btn01" onClick={handleAddUpdateProduct}>
+            {editState ? "update" : "add"}
+          </button>
+          {editState ? (
+            <button className="add-btn02" onClick={(e) => setEditState(false)}>cancel</button>
+          ) : null}
+        </div>
+      </div>
+      <div className="car-container">
         {products.map((car) => (
-          <li key={car.id}>
-            <span>{car.name}</span>
-            <span>{car.price}</span>
-            <button onClick={(f) => handelLetEditProduct(car)}>Edit</button>
-            <button onClick={(e) => handelRemoveProduct(car.id)}>
-              <RiDeleteBin2Fill color={"red"} size={"15px"}/>
-            </button>
-          </li>
+          <div className="car-details">
+            <div className="list">
+              <ul key={car.id}>
+                <li>
+                  <span>{car.name}</span>
+                </li>
+                <li>
+                  <span>{car.price}</span>
+                </li>
+              </ul>
+            </div>
+            <div className="button">
+              <button
+                type="button"
+                className="btn01"
+                onClick={(f) => handelLetEditProduct(car)}
+              >
+                <FiEdit />
+              </button>
+              <button
+                type="button"
+                className="btn02"
+                onClick={(e) => handelRemoveProduct(car.id)}
+              >
+                <RiDeleteBin2Fill />
+              </button>
+            </div>
+          </div>
         ))}
       </div>
-      <div className="input">
-        <input
-          value={productName}
-          onChange={(e) => setProductName(e.target.value)}
-          ref={nameInputRef}
-          onKeyPress={handlePressAtNameInput}
-        />
-        <input
-          type="number"
-          value={pricep}
-          onChange={(f) => productp(f.target.value)}
-          ref={priceInputRef}
-          onKeyPress={handlePressAtPriceInput}
-        />
-      </div>
-      <button onClick={handleAddUpdateProduct}>
-        {editState ? "update" : "add"}
-      </button>
-      {editState ? (
-        <button onClick={(e) => setEditState(false)}>cancel</button>
-      ) : null}
     </div>
   );
-};
+}
 
 export default CarList;

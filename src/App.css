@@ -47,9 +47,10 @@ li span {
     }
 }
 
-.expense-container {
+
+/* .expense-container {
     width: 60%;
-}
+} */
 
 .expense {
     display: flex;

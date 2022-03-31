@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.main-container {
+    width: 50%;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px 50px;
+    margin: 50px 0;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+}
+
+.input input {
+    margin: 5px 0;
+    padding: 0 5px;
+    height: 35px;
+}
+
+.add-btn button {
+    text-transform: uppercase;
+    padding: 8px 10px;
+    margin: 10px 5px;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.add-btn01 {
+    background-color: #71e757;
+}
+
+.add-btn02 {
+    background-color: #F44F38;
+}
+
+.main-container h1 {
+    text-transform: uppercase;
+    font-size: 2.5em;
+    color: #238FEB;
+}
+
+.car-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px 0;
+    background-color: #DDDFE1;
+    border-radius: 10px;
+}
+
+.car-details ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.list span {
+    font-size: 18px;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    /* justify-content: flex-end; */
+}
+
+.button button {
+    border: none;
+    margin: 0 8px;
+    cursor: pointer;
+}
+
+.btn01 {
+    color: #71e757;
+    background: transparent;
+    font-size: 20px;
+}
+
+.btn02 {
+    color: #F44F38;
+    background: transparent;
+    font-size: 20px;
+}

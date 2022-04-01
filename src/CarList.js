@@ -2,6 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import "./CarList.css";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { cssTransition } from 'react-toastify';
+import Modal from 'react-modal';
+
+const Zoom = cssTransition({
+  enter: 'zoomIn',
+  exit: 'zoomOut',
+  appendPosition: false,
+  collapse: true,
+  collapseDuration: 300
+});
 
 const cars = [
   {
@@ -48,6 +60,8 @@ function CarList() {
   const [selectedProduct, setSelectProduct] = useState(null);
   const nameInputRef = useRef(null);
   const priceInputRef = useRef(null);
+  const [openModel, setOpenModel] = useState(false);
+
 
   useEffect(() => {
     console.log("changed!!!");
@@ -70,6 +84,7 @@ function CarList() {
           { id: Date(), name: productName, price: pricep },
         ])
       );
+      toast("car : " + productName + " : added")
     } else {
       setproducts(
         products.map((p) => {
@@ -109,6 +124,8 @@ function CarList() {
       "products",
       JSON.stringify(products.filter((p) => p.id))
     );
+    toast("car : " + productName + " : deleted")
+
   };
 
   const handelLetEditProduct = (product) => {
@@ -117,6 +134,8 @@ function CarList() {
     setProductName(product.name);
     productp(product.price);
     nameInputRef?.current.focus();
+    toast("Car list Edited")
+
   };
 
   const handlePressAtNameInput = (e) => {
@@ -197,6 +216,16 @@ function CarList() {
               >
                 <RiDeleteBin2Fill />
               </button>
+              <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              newestOnTop={false}
+              draggable
+              pauseOnHover
+              />
+              <Modal isOpen={openModel}>
+                <p>lorem</p>
+              </Modal>
             </div>
           </div>
         ))}

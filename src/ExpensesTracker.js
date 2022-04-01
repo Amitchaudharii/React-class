@@ -16,7 +16,7 @@ function ExpensesTracker() {
   const [editState, setEditState] = useState(false);
 
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [total, setTotal] = useState(0);
+  // const [total, setTotal] = useState(0);
 
   useEffect(() => {
     console.log("changed!!!");
@@ -64,8 +64,37 @@ function ExpensesTracker() {
   };
 
   return (
-    <div className="App">
+    <div className="main-container">
       <h1>Expenses</h1>
+      <div className="form">
+        <div className="input">
+          <input
+            placeholder="Name"
+            value={productName}
+            onChange={(e) => setProductName(e.target.value)}
+          />
+          <input
+            type={"number"}
+            value={productPrice}
+            onChange={(e) => setProductPrice(e.target.value)}
+          />
+
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+        </div>
+
+        <div className="add-btn">
+          <button className="add-btn01" onClick={handleAddUpdateProduct}>
+            {editState ? "Update" : "Add"}
+          </button>
+          {editState ? (
+            <button className="add-btn02" onClick={(e) => setEditState(false)}>Cancel</button>
+          ) : null}
+        </div>
+      </div>
       <ul>
         {products.map((car) => (
           <ExpensesItem
@@ -79,34 +108,11 @@ function ExpensesTracker() {
             }}
           />
         ))}
-        <div>
+        <div className="total">
           <span>Total</span>
           <span>{products.reduce((a, v) => a + +v.price, 0)}</span>
         </div>
       </ul>
-
-      <input
-        value={productName}
-        onChange={(e) => setProductName(e.target.value)}
-      />
-      <input
-        type={"number"}
-        value={productPrice}
-        onChange={(e) => setProductPrice(e.target.value)}
-      />
-
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-      />
-
-      <button onClick={handleAddUpdateProduct}>
-        {editState ? "Update" : "Add"}
-      </button>
-      {editState ? (
-        <button onClick={(e) => setEditState(false)}>Cancel</button>
-      ) : null}
     </div>
   );
 }

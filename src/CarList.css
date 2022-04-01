@@ -90,16 +90,14 @@ body {
     border: none;
     margin: 0 8px;
     cursor: pointer;
+    background: transparent;
+    font-size: 20px;
 }
 
 .btn01 {
     color: #71e757;
-    background: transparent;
-    font-size: 20px;
 }
 
 .btn02 {
     color: #F44F38;
-    background: transparent;
-    font-size: 20px;
 }

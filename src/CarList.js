@@ -7,13 +7,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { cssTransition } from 'react-toastify';
 import Modal from 'react-modal';
 
-const Zoom = cssTransition({
-  enter: 'zoomIn',
-  exit: 'zoomOut',
-  appendPosition: false,
-  collapse: true,
-  collapseDuration: 300
-});
+// const Zoom = cssTransition({
+//   enter: 'zoomIn',
+//   exit: 'zoomOut',
+//   appendPosition: false,
+//   collapse: true,
+//   collapseDuration: 300
+// });
 
 const cars = [
   {

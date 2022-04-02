@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import "./CarList.css";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { cssTransition } from 'react-toastify';
-import Modal from 'react-modal';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { cssTransition } from "react-toastify";
+import Modal from "react-modal";
 
 // const Zoom = cssTransition({
 //   enter: 'zoomIn',
@@ -62,9 +62,8 @@ function CarList() {
   const priceInputRef = useRef(null);
   const [openModel, setOpenModel] = useState(false);
 
-
   useEffect(() => {
-    console.log("changed!!!");
+    // console.log("changed!!!");
     if (!editState) {
       setProductName("");
       productp(0);
@@ -84,7 +83,7 @@ function CarList() {
           { id: Date(), name: productName, price: pricep },
         ])
       );
-      toast("car : " + productName + " : added")
+      toast("Car " + productName + ": Price " + pricep + ": Added");
     } else {
       setproducts(
         products.map((p) => {
@@ -114,6 +113,7 @@ function CarList() {
         )
       );
       setEditState(false);
+      toast("Car " + productName + ": Price " + pricep + ": Updated");
     }
     setProductName("");
     productp(0);
@@ -124,18 +124,29 @@ function CarList() {
       "products",
       JSON.stringify(products.filter((p) => p.id))
     );
-    toast("car : " + productName + " : deleted")
-
+    toast("product Removed ");
+    setOpenModel(false);
+    setSelectProduct(null);
   };
 
-  const handelLetEditProduct = (product) => {
+  const handleClickRemove = (pr) => {
+    setOpenModel(true);
+    setSelectProduct(pr);
+  };
+
+  const handelEditProduct = (product) => {
     setEditState(true);
     setSelectProduct(product);
     setProductName(product.name);
     productp(product.price);
-    nameInputRef?.current.focus();
-    toast("Car list Edited")
 
+    nameInputRef?.current.focus();
+    toast("Added for Edit");
+  };
+
+  const handleCancelUpdateProduct = (e) => {
+    setEditState(false);
+    toast("Update cancel");
   };
 
   const handlePressAtNameInput = (e) => {
@@ -184,7 +195,9 @@ function CarList() {
             {editState ? "update" : "add"}
           </button>
           {editState ? (
-            <button className="add-btn02" onClick={(e) => setEditState(false)}>cancel</button>
+            <button className="add-btn02" onClick={handleCancelUpdateProduct}>
+              cancel
+            </button>
           ) : null}
         </div>
       </div>
@@ -205,26 +218,34 @@ function CarList() {
               <button
                 type="button"
                 className="btn01"
-                onClick={(f) => handelLetEditProduct(car)}
+                onClick={(f) => handelEditProduct(car)}
               >
                 <FiEdit />
               </button>
               <button
                 type="button"
                 className="btn02"
-                onClick={(e) => handelRemoveProduct(car.id)}
+                onClick={(e) => handleClickRemove(car)}
               >
                 <RiDeleteBin2Fill />
               </button>
               <ToastContainer
-              position="top-right"
-              autoClose={3000}
-              newestOnTop={false}
-              draggable
-              pauseOnHover
+                position="top-right"
+                autoClose={3000}
+                newestOnTop={false}
+                draggable
+                pauseOnHover
               />
               <Modal isOpen={openModel}>
-                <p>lorem</p>
+                <div>
+                  <p>Do you want delete</p>
+                  <button onClick={(e) => handelRemoveProduct(selectedProduct.id)}>
+                    Yes
+                  </button>
+                  <button onClick={(e) => setOpenModel(false)}>
+                    cancel
+                  </button>
+                </div>
               </Modal>
             </div>
           </div>

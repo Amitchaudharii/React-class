@@ -101,3 +101,53 @@ body {
 .btn02 {
     color: #F44F38;
 }
+
+
+/* modal */
+
+.ReactModal__Overlay.ReactModal__Overlay--after-open {
+    background-color: rgba(82, 80, 80, 0.2)!important;
+}
+
+.ReactModal__Content.ReactModal__Content--after-open {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 200px;
+    top: 5%!important;
+    left: 50%!important;
+    transform: translateX(-50%)!important;
+}
+
+.modal h3 {
+    color: #238FEB;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+}
+
+.modal-btns {
+    display: flex;
+    justify-content: center;
+}
+
+.modal-btns button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    margin: 0 8px;
+    font-size: 25px;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-btn01 {
+    background: #71e757;
+}
+
+.modal-btn02 {
+    background: #F44F38;
+}

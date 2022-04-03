@@ -2,19 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import "./CarList.css";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
+import { MdDownloadDone } from "react-icons/md";
+import { ImCancelCircle } from "react-icons/im";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { cssTransition } from "react-toastify";
 import Modal from "react-modal";
 
-// const Zoom = cssTransition({
-//   enter: 'zoomIn',
-//   exit: 'zoomOut',
-//   appendPosition: false,
-//   collapse: true,
-//   collapseDuration: 300
-// });
-
+Modal.setAppElement("#root") //for console error "app element is not defined"
 const cars = [
   {
     name: "BMW",
@@ -236,15 +231,22 @@ function CarList() {
                 draggable
                 pauseOnHover
               />
-              <Modal isOpen={openModel}>
-                <div>
-                  <p>Do you want delete</p>
-                  <button onClick={(e) => handelRemoveProduct(selectedProduct.id)}>
-                    Yes
+              <Modal 
+              // contentLabel="modal"
+              //  closeTimeoutMS={1000}
+              isOpen={openModel}
+              onRequestClose={() => setOpenModel(false)}
+              >
+                <div className="modal">
+                  <h3>Do you want delete</h3>
+                  <div className="modal-btns">
+                  <button className="modal-btn01" onClick={(e) => handelRemoveProduct(selectedProduct.id)}>
+                    <MdDownloadDone/>
                   </button>
-                  <button onClick={(e) => setOpenModel(false)}>
-                    cancel
+                  <button className="modal-btn02" onClick={(e) => setOpenModel(false)}>
+                    <ImCancelCircle/>
                   </button>
+                  </div>
                 </div>
               </Modal>
             </div>

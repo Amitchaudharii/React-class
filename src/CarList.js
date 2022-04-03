@@ -6,7 +6,6 @@ import { MdDownloadDone } from "react-icons/md";
 import { ImCancelCircle } from "react-icons/im";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { cssTransition } from "react-toastify";
 import Modal from "react-modal";
 
 Modal.setAppElement("#root") //for console error "app element is not defined"
@@ -67,6 +66,7 @@ function CarList() {
 
   const handleAddUpdateProduct = (e) => {
     if (!editState) {
+      // editState == false means button should add
       setproducts([
         ...products,
         { id: Date(), name: productName, price: pricep },
@@ -80,6 +80,7 @@ function CarList() {
       );
       toast("Car " + productName + ": Price " + pricep + ": Added");
     } else {
+      // editState == true means button should update/save
       setproducts(
         products.map((p) => {
           if (p.id === selectedProduct.id) {

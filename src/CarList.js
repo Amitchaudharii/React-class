@@ -233,9 +233,10 @@ function CarList() {
               />
               <Modal 
               // contentLabel="modal"
-              //  closeTimeoutMS={1000}
+               closeTimeoutMS={100}
               isOpen={openModel}
               onRequestClose={() => setOpenModel(false)}
+              className="modal-container"
               >
                 <div className="modal">
                   <h3>Do you want delete</h3>

@@ -109,15 +109,18 @@ body {
     background-color: rgba(82, 80, 80, 0.2)!important;
 }
 
-.ReactModal__Content.ReactModal__Content--after-open {
+.modal-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
     width: 400px;
     height: 200px;
-    top: 5%!important;
-    left: 50%!important;
-    transform: translateX(-50%)!important;
+    background-color: #fff;
+    border-radius: 5px;
 }
 
 .modal h3 {

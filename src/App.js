@@ -1,31 +1,21 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Counter from "./Counter";
-import React from "react";
+// import React from "react";
 import ExpensesTracker from "./ExpensesTracker";
 import CarList from "./CarList";
+import React, { useState } from "react";
+import BillingList from "./BillingList";
 
-
-function App({
-  name,
-  location,
-  coOrdinates: { latitude, longitude },
-  age,
-  primes,
-}) {
+function App() {
+  const [selected, setSelected] = useState("basic");
   return (
     <div className="App">
-      <h1>{name}</h1>
-      <h1>{location}</h1>
-      <h1>{latitude}' North</h1>
-      <h1>{longitude}'East</h1>
-      <h1>{age} years</h1>
-      <h2>
-        Primes: {primes} {primes.length} primes
-      </h2>
-      <Counter />
+      <button className={selected === "basic" ? "selected-btn" : ""} onClick={e => setSelected("counter")}>Counter</button>
+      {selected === "counter" && <Counter />}
       <CarList />
       <ExpensesTracker />
+      <BillingList/>
     </div>
   );
 }

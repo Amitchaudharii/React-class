@@ -9,40 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Modal from "react-modal";
 
 Modal.setAppElement("#root") //for console error "app element is not defined"
-const cars = [
-  {
-    name: "BMW",
-    price: 400,
-  },
-  {
-    name: "Bentley",
-    price: 300,
-  },
-  {
-    name: "Tesla",
-    price: 300,
-  },
-  {
-    name: "Lamborghini",
-    price: 300,
-  },
-  {
-    name: "Mercedez",
-    price: 300,
-  },
-  {
-    name: "Porsche",
-    price: 300,
-  },
-  {
-    name: "Buggatti",
-    price: 300,
-  },
-  {
-    name: "Ferrari",
-    price: 300,
-  },
-];
+
 
 function CarList() {
   // console.log(name, location, "ccheck props");
@@ -71,7 +38,7 @@ function CarList() {
         ...products,
         { id: Date(), name: productName, price: pricep },
       ]);
-      localStorage.setItem(
+      localStorage.setItem( //Data update on locall storage
         "products",
         JSON.stringify([
           ...products,
@@ -91,10 +58,11 @@ function CarList() {
             };
           }
           return p;
+          
         })
       );
-      localStorage.setItem(
-        "products",
+      localStorage.setItem( //New data update on locall storage
+        "products", 
         JSON.stringify(
           products.map((p) => {
             if (p.id === selectedProduct.id) {
@@ -114,9 +82,9 @@ function CarList() {
     setProductName("");
     productp(0);
   };
-  const handelRemoveProduct = (id) => {
+  const handelRemoveProduct = (id) => { // for catlist remove
     setproducts(products.filter((p) => p.id !== id));
-    localStorage.setItem(
+    localStorage.setItem( // deleted data update on locall storage
       "products",
       JSON.stringify(products.filter((p) => p.id))
     );

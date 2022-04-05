@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./BillingList.css";
 
 const BillingList = () => {
   const [entries, setEntries] = useState([]);
@@ -33,8 +34,9 @@ const BillingList = () => {
   console.log(products, product);
   return (
     <div>
-      <div className="App">
-        <div className="entries-container">
+      <div className="main-container">
+        <div className="box">
+          <h1>Billing List</h1>
           {entries.map((en) => (
             <div>
               <span>{en.productName}</span>
@@ -43,70 +45,80 @@ const BillingList = () => {
               <span>{+en.price * +en.quantity}</span>
             </div>
           ))}
-          <p>
-            <span>subTotal</span>
-            <span>
-              {entries.reduce((a, v) => a + +v.price * +v.quantity, 0)}
-            </span>
-          </p>
-          <p>
-            <span>Discount amount</span>
-            <span>
-              {(entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
-                discountRate) /
-                100}
-            </span>
-          </p>
-          <p>
-            <span>Total</span>
-            <span>
-              {entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
-                (1 - discountRate / 100)}
-            </span>
-          </p>
-          <p>
-            <span>vat amount</span>
-            <span>
-              {(entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
-                (1 - discountRate / 100) *
-                vatRate) /
-                100}
-            </span>
-          </p>
-          <p>
-            <span>Grand Total</span>
-            <span>
-              {entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
-                (1 - discountRate / 100) *
-                (1 + vatRate / 100)}
-            </span>
-          </p>
-        </div>
-        <div>
-          <select value={product} onChange={(e) => setProduct(e.target.value)}>
-            {products.map((p) => (
-              <option id={p.name} key={p.id} value={p.id}>
-                {p.name}
-              </option>
-            ))}
-          </select>
-          <input
-            value={quantity}
-            type="number"
-            onChange={(e) => setQuantity(e.target.value)}
-          />
-          <button onClick={handleAddEntry}>Add Entry</button>
 
-          <input
-            value={discountRate}
-            type="number"
-            onChange={(e) => setDiscoutRate(e.target.value)}
-          />
-          <input
-            value={vatRate}
-            type="number"
-            onChange={(e) => setVatRate(e.target.value)}
-          />
+          <div className="billinglist-form">
+            <select
+              value={product}
+              onChange={(e) => setProduct(e.target.value)}
+            >
+              {products.map((p) => (
+                <option id={p.name} key={p.id} value={p.id}>
+                  {p.name}
+                </option>
+              ))}
+            </select>
+            <input
+              value={quantity}
+              type="number"
+              onChange={(e) => setQuantity(e.target.value)}
+            />
+
+            <input
+              value={discountRate}
+              type="number"
+              onChange={(e) => setDiscoutRate(e.target.value)}
+            />
+            <input
+              value={vatRate}
+              type="number"
+              onChange={(e) => setVatRate(e.target.value)}
+            />
+            <div className="add-btn">
+              <button className="add-btn01" onClick={handleAddEntry}>
+                Add Entry
+              </button>
+            </div>
+          </div>
+          <div className="billinglist-details">
+            <div className="car-details">
+              <span>subTotal</span>
+              <span>
+                {entries.reduce((a, v) => a + +v.price * +v.quantity, 0)}
+              </span>
+            </div>
+            <div className="car-details">
+              <span>Discount amount</span>
+              <span>
+                {(entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
+                  discountRate) /
+                  100}
+              </span>
+            </div>
+            <div className="car-details">
+              <span>Total</span>
+              <span>
+                {entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
+                  (1 - discountRate / 100)}
+              </span>
+            </div>
+            <div className="car-details">
+              <span>vat amount</span>
+              <span>
+                {(entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
+                  (1 - discountRate / 100) *
+                  vatRate) /
+                  100}
+              </span>
+            </div>
+            <div className="car-details">
+              <span>Grand Total</span>
+              <span>
+                {entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
+                  (1 - discountRate / 100) *
+                  (1 + vatRate / 100)}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

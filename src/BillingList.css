@@ -1,0 +1,16 @@
+.billinglist-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.billinglist-form input {
+    margin: 10px 0;
+    height: 35px;
+    padding: 0 5px;
+}
+
+.billinglist-form select {
+    margin: 10px 0;
+    height: 35px;
+    padding: 0 5px;
+}

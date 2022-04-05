@@ -8,8 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Modal from "react-modal";
 
-Modal.setAppElement("#root") //for console error "app element is not defined"
-
+Modal.setAppElement("#root"); //for console error "app element is not defined"
 
 function CarList() {
   // console.log(name, location, "ccheck props");
@@ -38,7 +37,8 @@ function CarList() {
         ...products,
         { id: Date(), name: productName, price: pricep },
       ]);
-      localStorage.setItem( //Data update on locall storage
+      localStorage.setItem(
+        //Data update on locall storage
         "products",
         JSON.stringify([
           ...products,
@@ -58,11 +58,11 @@ function CarList() {
             };
           }
           return p;
-          
         })
       );
-      localStorage.setItem( //New data update on locall storage
-        "products", 
+      localStorage.setItem(
+        //New data update on locall storage
+        "products",
         JSON.stringify(
           products.map((p) => {
             if (p.id === selectedProduct.id) {
@@ -82,9 +82,11 @@ function CarList() {
     setProductName("");
     productp(0);
   };
-  const handelRemoveProduct = (id) => { // for catlist remove
+  const handelRemoveProduct = (id) => {
+    // for catlist remove
     setproducts(products.filter((p) => p.id !== id));
-    localStorage.setItem( // deleted data update on locall storage
+    localStorage.setItem(
+      // deleted data update on locall storage
       "products",
       JSON.stringify(products.filter((p) => p.id))
     );
@@ -135,6 +137,7 @@ function CarList() {
 
   return (
     <div className="main-container">
+      <div className="box">
       <h1>Cars</h1>
       <div className="form">
         <div className="input">
@@ -200,22 +203,28 @@ function CarList() {
                 draggable
                 pauseOnHover
               />
-              <Modal 
-              // contentLabel="modal"
-               closeTimeoutMS={100}
-              isOpen={openModel}
-              onRequestClose={() => setOpenModel(false)}
-              className="modal-container"
+              <Modal
+                // contentLabel="modal"
+                closeTimeoutMS={100}
+                isOpen={openModel}
+                onRequestClose={() => setOpenModel(false)}
+                className="modal-container"
               >
                 <div className="modal">
                   <h3>Do you want delete</h3>
                   <div className="modal-btns">
-                  <button className="modal-btn01" onClick={(e) => handelRemoveProduct(selectedProduct.id)}>
-                    <MdDownloadDone/>
-                  </button>
-                  <button className="modal-btn02" onClick={(e) => setOpenModel(false)}>
-                    <ImCancelCircle/>
-                  </button>
+                    <button
+                      className="modal-btn01"
+                      onClick={(e) => handelRemoveProduct(selectedProduct.id)}
+                    >
+                      <MdDownloadDone />
+                    </button>
+                    <button
+                      className="modal-btn02"
+                      onClick={(e) => setOpenModel(false)}
+                    >
+                      <ImCancelCircle />
+                    </button>
                   </div>
                 </div>
               </Modal>
@@ -223,6 +232,7 @@ function CarList() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

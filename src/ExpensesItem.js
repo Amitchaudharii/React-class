@@ -3,7 +3,7 @@ import moment from "moment";
 import "./Expense.css";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
-import Tooltip from "react-tooltip";
+import tooltip from "react-tooltip";
 
 const ExpensesItem = ({ expense, onEdit, onRemove }) => {
   return (
@@ -22,11 +22,11 @@ const ExpensesItem = ({ expense, onEdit, onRemove }) => {
         </ul>
       </div>
       <div className="button">
-        <Tooltip title="Edit">
+        <tooltip title="Edit">
           <button className="btn01" onClick={onEdit}>
             <FiEdit />
           </button>
-        </Tooltip>
+        </tooltip>
         <tooltip title="Delete">
           <button className="btn02" onClick={onRemove}>
             <RiDeleteBin2Fill />

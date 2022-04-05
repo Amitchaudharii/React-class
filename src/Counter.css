@@ -9,3 +9,8 @@
 button span {
     font-size: 28px;
 }
+
+.value {
+    display: flex;
+    justify-content: center;
+}

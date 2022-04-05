@@ -10,13 +10,41 @@ import BillingList from "./BillingList";
 function App() {
   const [selected, setSelected] = useState("basic");
   return (
-    <div className="App">
-      <button className={selected === "basic" ? "selected-btn" : ""} onClick={e => setSelected("counter")}>Counter</button>
+    <>
+      <button
+        className={selected === "counter" ? "selected-btn" : ""}
+        onClick={(e) => setSelected("counter")}
+      >
+        Counter
+      </button>
+      
+      <button
+        className={selected === "carlist" ? "selected-btn" : ""}
+        onClick={(e) => setSelected("carlist")}
+      >
+        carlist
+      </button>
+
+      <button
+        className={selected === "expense" ? "selected-btn" : ""}
+        onClick={(e) => setSelected("expense")}
+      >
+        Expense
+      </button>
+
+      <button
+        className={selected === "billinglist" ? "selected-btn" : ""}
+        onClick={(e) => setSelected("billinglist")}
+      >
+        billinglist
+      </button>
+
+      <p>{selected}</p>
       {selected === "counter" && <Counter />}
-      <CarList />
-      <ExpensesTracker />
-      <BillingList/>
-    </div>
+      {selected === "carlist" && <CarList />}
+      {selected === "expense" && <ExpensesTracker />}
+      {selected === "billinglist" && <BillingList />}
+    </>
   );
 }
 export default App;

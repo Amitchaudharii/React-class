@@ -117,25 +117,25 @@ const BillingList = () => {
             <div className="car-details">
               <span>Total</span>
               <span>
-                {entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
-                  (1 - discountRate / 100)}
+                {(entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
+                  (1 - discountRate / 100)).toFixed(2)}
               </span>
             </div>
             <div className="car-details">
               <span>vat amount</span>
               <span>
-                {(entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
+                {((entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
                   (1 - discountRate / 100) *
                   vatRate) /
-                  100}
+                  100).toFixed(2)}
               </span>
             </div>
             <div className="car-details">
               <span>Grand Total</span>
               <span>
-                {entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
+                {(entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
                   (1 - discountRate / 100) *
-                  (1 + vatRate / 100)}
+                  (1 + vatRate / 100)).toFixed(2)}
               </span>
             </div>
           </div>

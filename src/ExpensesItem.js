@@ -22,12 +22,12 @@ const ExpensesItem = ({ expense, onEdit, onRemove }) => {
         </ul>
       </div>
       <div className="button">
-        <tooltip title="Edit">
+        <tooltip title="EDIT">
           <button className="btn01" onClick={onEdit}>
             <FiEdit />
           </button>
         </tooltip>
-        <tooltip title="Delete">
+        <tooltip title="DELETE">
           <button className="btn02" onClick={onRemove}>
             <RiDeleteBin2Fill />
           </button>

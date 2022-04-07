@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./BillingList.css";
 import moment from "moment";
 import Select from 'react-select'
@@ -13,6 +13,35 @@ const BillingList = () => {
   const [subTotal, setSubtotal] = useState(0);
   const [discountRate, setDiscoutRate] = useState(3);
   const [vatRate, setVatRate] = useState(13);
+  const pselectInputRef = useRef(null);
+  const quantityInputRef = useRef(null);
+  const disrateInputRef = useRef(null);
+  const vatrateInputRef = useRef(null);
+
+  const handlePressAtselectInput = (e) => {
+    if (e.code === "Enter") {
+      quantityInputRef?.current.focus();
+    };
+  };
+
+  const handlePressAtquantityInput = (e) => {
+    if (e.code === "Enter"){
+      disrateInputRef?.current.focus();
+    };
+  };
+
+  const handlePressAtdisrateInput = (e) => {
+    if (e.code === "Enter"){
+      vatrateInputRef?.current.focus();
+    };
+  };
+
+  const handlePressAtvatrateInput = (e) => {
+    if (e.code === "Enter"){
+      handleAddEntry();
+      pselectInputRef?.current.focus();
+    };
+  };
 
   useEffect(() => {
     const productsRecorded = JSON.parse(localStorage.getItem("products"));
@@ -59,26 +88,40 @@ const BillingList = () => {
             }))}
             onChange={a => setProduct(a.id)}
             placeholder={"Select product"}
+            ref={pselectInputRef}
+            onKeyDown={handlePressAtselectInput}
             />
+            <label htmlFor="quantity">Quantity</label>
             <input
+            id="quantity"
               value={quantity}
               type="number"
               onChange={(e) => setQuantity(e.target.value)}
+              ref={quantityInputRef}
+              onKeyDown={handlePressAtquantityInput}
             />
-            <div className="add-btn"actSelect>
+            <div className="add-btn">
               <button className="add-btn01" onClick={handleAddEntry}>
                 Add Entry
               </button>
             </div>
+            <label htmlFor="disrate">Discount Rate</label>
             <input
+            id="disrate"
               value={discountRate}
               type="number"
               onChange={(e) => setDiscoutRate(e.target.value)}
+              ref={disrateInputRef}
+              onKeyDown={handlePressAtdisrateInput}
             />
+            <label htmlFor="vatrate">Vate Rate</label>
             <input
+            id="vatrate"
               value={vatRate}
               type="number"
               onChange={(e) => setVatRate(e.target.value)}
+              ref={vatrateInputRef}
+              onKeyDown={handlePressAtvatrateInput}
             />
           </div>
           <div className="billinglist-details">

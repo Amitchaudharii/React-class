@@ -3,19 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
+    <BrowserRouter>
     <App
-      name="React"
-      age={20}
-      location={"Lalitpur"}
-      coOrdinates={{
-        longgitude: 80,
-        latitude: 27,
-      }}
-      primes={[2, 3, 5, 7, 11, 13]}
+      
     />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

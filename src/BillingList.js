@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./BillingList.css";
 import moment from "moment";
-import Select from 'react-select'
+import Select from "react-select";
 import ReactSelect from "react-select";
+import { RiDeleteBin2Fill } from "react-icons/ri";
+import { FiEdit } from "react-icons/fi";
 
 const BillingList = () => {
   const [entries, setEntries] = useState([]);
@@ -11,7 +13,7 @@ const BillingList = () => {
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState(null);
   const [subTotal, setSubtotal] = useState(0);
-  const [discountRate, setDiscoutRate] = useState(3);
+  const [discountRate, setDiscountRate] = useState(3);
   const [vatRate, setVatRate] = useState(13);
   const pselectInputRef = useRef(null);
   const quantityInputRef = useRef(null);
@@ -21,27 +23,39 @@ const BillingList = () => {
   const handlePressAtselectInput = (e) => {
     if (e.code === "Enter") {
       quantityInputRef?.current.focus();
-    };
+    }
   };
 
   const handlePressAtquantityInput = (e) => {
-    if (e.code === "Enter"){
+    if (e.code === "Enter") {
       disrateInputRef?.current.focus();
-    };
+    }
   };
 
   const handlePressAtdisrateInput = (e) => {
-    if (e.code === "Enter"){
+    if (e.code === "Enter") {
       vatrateInputRef?.current.focus();
-    };
+    }
   };
 
   const handlePressAtvatrateInput = (e) => {
-    if (e.code === "Enter"){
+    if (e.code === "Enter") {
       handleAddEntry();
       pselectInputRef?.current.focus();
-    };
+    }
   };
+
+  // const handleEditProduct = (product) => {
+  //   setSelectProduct(product);
+  //   setQuantity(product.quantity);
+  //   setDiscountRate(product.Disrate);
+  //   setVatRate(product.vatrate);
+  // };
+
+  // const handleRemoveProduct = (id) => {
+  //   setProducts(products.filter((p) => p.id !== id));
+  // };
+
 
   useEffect(() => {
     const productsRecorded = JSON.parse(localStorage.getItem("products"));
@@ -81,19 +95,20 @@ const BillingList = () => {
                 </option>
               ))}
             </select> */}
-            <ReactSelect options={products.map(p => ({
-              ...p,
-              value: p.id,
-              label: p.name,
-            }))}
-            onChange={a => setProduct(a.id)}
-            placeholder={"Select product"}
-            ref={pselectInputRef}
-            onKeyDown={handlePressAtselectInput}
+            <ReactSelect
+              options={products.map((p) => ({
+                ...p,
+                value: p.id,
+                label: p.name,
+              }))}
+              onChange={(a) => setProduct(a.id)}
+              placeholder={"Select product"}
+              ref={pselectInputRef}
+              onKeyDown={handlePressAtselectInput}
             />
             <label htmlFor="quantity">Quantity</label>
             <input
-            id="quantity"
+              id="quantity"
               value={quantity}
               type="number"
               onChange={(e) => setQuantity(e.target.value)}
@@ -107,16 +122,16 @@ const BillingList = () => {
             </div>
             <label htmlFor="disrate">Discount Rate</label>
             <input
-            id="disrate"
+              id="disrate"
               value={discountRate}
               type="number"
-              onChange={(e) => setDiscoutRate(e.target.value)}
+              onChange={(e) => setDiscountRate(e.target.value)}
               ref={disrateInputRef}
               onKeyDown={handlePressAtdisrateInput}
             />
             <label htmlFor="vatrate">Vate Rate</label>
             <input
-            id="vatrate"
+              id="vatrate"
               value={vatRate}
               type="number"
               onChange={(e) => setVatRate(e.target.value)}
@@ -140,6 +155,22 @@ const BillingList = () => {
                   <span>{+en.quantity}</span>
                   <span>{+en.price}</span>
                   <span>{+en.price * +en.quantity}</span>
+                  <div className="button">
+                    <button
+                      type="button"
+                      className="btn01"
+                      // onClick={(f) => handleEditProduct()}
+                    >
+                      <FiEdit />
+                    </button>
+                    <button
+                      type="button"
+                      className="btn02"
+                      // onClick={(e) => handleRemoveProduct(en.id)}
+                    >
+                      <RiDeleteBin2Fill />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -160,25 +191,31 @@ const BillingList = () => {
             <div className="car-details">
               <span>Total</span>
               <span>
-                {(entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
-                  (1 - discountRate / 100)).toFixed(2)}
+                {(
+                  entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
+                  (1 - discountRate / 100)
+                ).toFixed(2)}
               </span>
             </div>
             <div className="car-details">
               <span>vat amount</span>
               <span>
-                {((entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
-                  (1 - discountRate / 100) *
-                  vatRate) /
-                  100).toFixed(2)}
+                {(
+                  (entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
+                    (1 - discountRate / 100) *
+                    vatRate) /
+                  100
+                ).toFixed(2)}
               </span>
             </div>
             <div className="car-details">
               <span>Grand Total</span>
               <span>
-                {(entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
+                {(
+                  entries.reduce((a, v) => a + +v.price * +v.quantity, 0) *
                   (1 - discountRate / 100) *
-                  (1 + vatRate / 100)).toFixed(2)}
+                  (1 + vatRate / 100)
+                ).toFixed(2)}
               </span>
             </div>
           </div>

@@ -170,7 +170,7 @@ function CarList() {
       </div>
       <div className="car-container">
         {products.map((car) => (
-          <div className="car-details">
+          <div key={car.id} className="car-details">
             <div className="list">
               <ul key={car.id}>
                 <li>
